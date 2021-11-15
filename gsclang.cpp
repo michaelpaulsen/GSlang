@@ -9,10 +9,81 @@ or 81 XXXXXX YYYY
 there are some other codes which will check the current value, and if it equals YYYY will continue to execute code. These can be used as "IF" statements to check when to run a code
 
 */
-#include <iostream> 
-
-int main(int argc,char** argv){ 
-	for(int x = 1; x < argc; x++){  
-		std::cout << argv[x]<<'\n'; 
+#include <iostream>
+#include <memory> 
+//#define DEBUG 
+size_t str_len( const char* str){ 
+	// this is size_t because in theroy we could have a string that is longer than maxint 
+	// so to be c++ compliant we need to use type_t 
+	// because if it is larger than maxType_T then it is malformed c++ by defintion
+	/// TODO replace with the cstring header's implementation; 
+	/// cant ringht now don't have internet 
+	size_t x = 0;  
+	while(str[x] != 0){ 
+		x++; 
+	}
+	return ++x; 
+}
+char* getFileNameFromPath( const char* filePath){ 
+	///TODO move this to my skelelib 
+	/// takes a folder path as input and returns the file name or the bottom level folder
+	char* tempFileName = static_cast<char*>(calloc(str_len(filePath)*sizeof(char),0)); 
+	//fills the memory at the adress returned with 0s
+	//then staticly cast that to a char pointer
+	//you could use new here. 
+	size_t size = 0; 
+	size_t z = 0; 
+#ifdef DEBUG 
+	std::cout<<'\n'<< filePath << '\n';
+#endif
+	if(str_len(filePath)-1 <= 0){ 
+		// is the string empty could also check if the first char is 0	
+		return nullptr; 
+	}
+	size_t x = str_len(filePath)-1; 
+	while(x--){ 
+		if(x > str_len(filePath)-2 || filePath[x] == 0)break;
+		/// we subtract one because arrays are 0 based
+		// then we subtract one beccause we don't want to set the first char to 0
+		//(c strings always end in a null charictar)
+		//std::cout<<filePath[x];   	
+		if(filePath[x] == '/' || filePath[x] == '\\')break; 	
+		tempFileName[z] = filePath[x]; 
+#ifdef DEBUG 
+		std::cout<<' '<<filePath[x] << ' '; 
+#endif
+		z++; 
+		size += sizeof(char); // should always be 1 but this is more verbose 	
 	}	
+	 
+	char* fileName = static_cast<char*>(calloc(size+1,0));
+	//we need to add the one here becuase we removed it when we were 
+	//looping though the string the first time
+	//create the temp var because it is reversed so I need to 
+	//un reverse it. 
+	//I create this after writing to the 			
+	z = 0; 			
+	for(size_t x = size-1; x >= 0; x--){
+		if(x > size){ 
+			break; 
+		}
+		fileName[z] = tempFileName[x];
+#ifdef DEBUG 
+		std::cout<< 'x' << tempFileName[x] << 'z' << fileName[z];
+#endif
+		z++;
+		 	
+	}
+	free(tempFileName); 
+	return fileName; 
+}
+int main(int argc,char** argv){ 
+	if(argc == 2){ 
+		std::cout<<getFileNameFromPath(argv[1]); 
+	}else{ 
+		std::cout << "use : " <<getFileNameFromPath(argv[0])<< " [path]\n";
+	       	std::cout << "compiles the gsl file at [path] into gameshark codes" 
+		return -1; 
+	}
+	return 1; 
 } 
