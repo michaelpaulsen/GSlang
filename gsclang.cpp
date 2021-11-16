@@ -97,7 +97,15 @@ int main(int argc,char** argv){
 		char* ln = static_cast<char*>(calloc(1000000*sizeof(char),0));
 		while (!feof(file)) {
 			ln = fgets(ln, 1000000, file);
-			printf("%s", ln);
+			if(ln[0] == 0) break; 
+
+			//printf("%s %d\n", ln, str_len(ln));
+			for(int x = 0; x < str_len(ln); x++){ 
+				if(ln[x] == ';') break; // ignore the comments 
+				printf("%c",ln[x]); 
+			
+			}
+		       printf("\n");	
 		}	
 	}else{ 
 		printf("use : %s [path]\n", getFileNameFromPath(argv[0]));

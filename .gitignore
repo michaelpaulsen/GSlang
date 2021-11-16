@@ -4,3 +4,5 @@
 *.un~
 *.cpp~
 *.cpp~
+*.lng~
+*.gsl~
