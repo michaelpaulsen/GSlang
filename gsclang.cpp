@@ -13,7 +13,7 @@ there are some other codes which will check the current value, and if it equals 
 #include <memory>
 #include <cstdio>
 #include <stdlib.h>
-
+#define _CRT_SECURE_NO_WARNINGS
 //#define DEBUG 
 size_t str_len( const char* str){ 
 	// this is size_t because in theroy we could have a string that is longer than maxint 
@@ -92,6 +92,7 @@ int main(int argc,char** argv){
 		        printf("compile its instructions to gameshark codes\n");
 			printf("ERROR: un able to open file %s", argv[1]);
 			return EXIT_FAILURE;
+			
 		}
 		char* ln = static_cast<char*>(calloc(1000000*sizeof(char),0));
 		while (!feof(file)) {
