@@ -1,0 +1,2 @@
+cd ..
+clang++ .\gsclang.cpp -O3 -Wall -Werror -_CRT_SECURE_NO_WARNINGS

@@ -82,11 +82,26 @@ char* getFileNameFromPath( const char* filePath){
 }
 int main(int argc,char** argv){ 
 	if(argc == 2){ 
-		std::cout<<getFileNameFromPath(argv[1]); 
+		auto file = fopen(argv[1],"r");	
+		/// TODO Change to fopen_s
+		if (file == nullptr){
+			printf(" \n->usage %s <file name> [delimiter]\n",
+					getFileNameFromPath(argv[0])
+			); 
+			printf("use to open <file name>");
+		        printf("compile its instructions to gameshark codes\n");
+			printf("ERROR: un able to open file %s", argv[1]);
+			return EXIT_FAILURE;
+		}
+		char* ln = static_cast<char*>(calloc(1000000*sizeof(char),0));
+		while (!feof(file)) {
+			ln = fgets(ln, 1000000, file);
+			printf("%s", ln);
+		}	
 	}else{ 
 		printf("use : %s [path]\n", getFileNameFromPath(argv[0]));
 	       	printf("compiles the file at [path] into gameshark codes");  
-		return -1; 
+		return EXIT_FAILURE; 
 	}
 	return 1; 
 } 
