@@ -10,7 +10,10 @@ there are some other codes which will check the current value, and if it equals 
 
 */
 #include <iostream>
-#include <memory> 
+#include <memory>
+#include <cstdio>
+#include <stdlib.h>
+
 //#define DEBUG 
 size_t str_len( const char* str){ 
 	// this is size_t because in theroy we could have a string that is longer than maxint 
@@ -81,8 +84,8 @@ int main(int argc,char** argv){
 	if(argc == 2){ 
 		std::cout<<getFileNameFromPath(argv[1]); 
 	}else{ 
-		std::cout << "use : " <<getFileNameFromPath(argv[0])<< " [path]\n";
-	       	std::cout << "compiles the gsl file at [path] into gameshark codes" 
+		printf("use : %s [path]\n", getFileNameFromPath(argv[0]));
+	       	printf("compiles the file at [path] into gameshark codes");  
 		return -1; 
 	}
 	return 1; 
