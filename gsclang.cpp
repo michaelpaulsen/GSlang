@@ -107,7 +107,7 @@ int main(int argc,char** argv){
 				// ignore the comments 
 				printf("%c",ln[x]); 
 			}
-		        printf("\n");	
+		        if(!ignoreLine) printf("\n");	
 		}	
 	}else{ 
 		printf("use : %s [path]\n", getFileNameFromPath(argv[0]));
